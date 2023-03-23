@@ -1,0 +1,44 @@
+
+<app-navbar></app-navbar>
+
+
+<section class="position-relative mb-5 d-flex justify-content-center">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="form-control">
+            <div class="input-group">
+                <input type="text" formControlName="title" [(ngModel)]="title">
+                <input type="text" formControlName="year" [(ngModel)]="year">
+            
+                <button class="btn btn-primary" type="submit" [disabled]="!searchForm.valid">Buscar</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section>
+    <div *ngIf="!data.Error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>  {{data.Actors}}</mat-card-title>
+                      <mat-card-subtitle>Year {{data.Year}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                     <img *ngIf="data.Poster" src="{{data.Poster}}">
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <p>Fuente:  {{ratings.Source}}</p>
+                        <p>Rating: {{ratings.Value}}</p>
+                        <br>
+                      <button mat-button (click)="details(data.imdbID)">Ver</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative mb-5 d-flex justify-content-center" *ngIf="data.Error">{{data.Error}}
+    </div>
+</section>
